@@ -1,0 +1,897 @@
+  <html>
+      <head>
+	  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="rounded_panel.css" rel="stylesheet" type="text/css">
+  <style>
+
+
+  .panel-login>.panel-heading {
+    color: #00415d;
+    background-color: #fff;
+    border-color: #fff;
+    text-align:center;
+  }
+  .panel-login>.panel-heading a{
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+    font-size: 15px;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+  }
+  .panel-login>.panel-heading a.active{
+    color: #029f5b;
+    font-size: 18px;
+  }
+  .panel-login>.panel-heading hr{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    clear: both;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              .lblue {
+              background-color: #098bea;
+              color: #ffffff;
+          }
+
+          .flat {
+              border-radius: 0px;
+          }
+
+          .flatPanel {
+              font-size: large;
+              border-radius: 0;
+              color: black;
+          }
+
+          .pad {
+              padding: 10px;
+              margin-bottom: 0px;
+          }
+
+          .pointer {
+              cursor: pointer;
+          }
+
+          .pad {
+              padding: 15px;
+          }
+
+          .pointer {
+              cursor: pointer;
+          }
+
+  .jumbotron { 
+      background-color: #f4511e; /* Orange */
+      color: #ffffff;
+  }
+
+  .circle {
+    margin: 36px;
+    display: inline-block;
+    padding: 16px;
+    text-align: center;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 2px solid #1d2087;
+  }
+
+  .circle::before,
+  .circle::after {
+    position: absolute;
+    z-index: -1;
+    display: block;
+    content: '';
+  }
+  .circle,
+  .circle::before,
+  .circle::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+  }
+
+  .circle {
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    border: 2px solid #5c5eae;
+    color: #5c5eae;
+    line-height: 50px;
+    overflow: hidden;
+  }
+
+  .circle:hover {
+    color: #fff;
+  }
+  .circle::after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+  }
+  .circle:hover::after {
+    background: #5c5eae;
+    border-radius: 50%;
+    -webkit-transform: scale(.9);
+    transform: scale(.9);
+  }
+
+  .circle1 {
+    opacity: 0.4;
+  }
+
+  .circle2 {
+    opacity: 0.6;
+  }
+
+  .circle3 {
+    opacity: 0.8;
+  }
+
+  .circle a {
+    text-decoration: none;
+    color: #1d2087;
+  }
+
+  .circle h2 {
+    font-size: 60px;
+  }
+
+  .circle h2 small {
+    color: #1d2087;
+  }
+
+  .circle p {
+    font-size: 24px;
+    line-height: 26px;
+  }
+
+
+
+      </style>
+  <script>
+
+
+function adduser()
+  {
+    var xmlhttp = new XMLHttpRequest();
+    var usr= document.getElementById('username').value;
+    var pwd= document.getElementById('password').value;
+  
+if(usr =="" && pwd=="" || usr == "" || pwd ==""){
+   $("#Message").addClass("alert alert-danger").html("please fill all the fields");
+}else{
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1=document.getElementById("Message").value = myObj.name;
+         if(data1=="1"){
+          $("#Message").addClass("alert alert-success").html("New user added successfully");
+         }
+         else{
+            $("#Message").addClass("alert alert-danger").html("problem to add new user");
+        
+         }
+          }
+  };
+  xmlhttp.open("GET", "adduser.php?username="+usr+"&password="+pwd, true);
+  xmlhttp.send();
+  }
+  }
+
+function clear_question_fields(){
+  var question= document.getElementById('question').value="";
+    var a= document.getElementById('a').value="";
+    var b= document.getElementById('b').value="";
+    var c= document.getElementById('c').value="";
+    var d= document.getElementById('ans').value="";
+    $("#Message_question").removeClass("alert alert-danger alert-success").html(" ");
+
+}
+
+
+
+function addquestion()
+  {
+    var xmlhttp = new XMLHttpRequest();
+    var question= document.getElementById('question').value;
+    var a= document.getElementById('a').value;
+    var b= document.getElementById('b').value;
+    var c= document.getElementById('c').value;
+	var date=document.getElementById('date').value;
+    var d= document.getElementById('ans').value;
+if(d=="a"){
+
+d=a;
+}
+else if(d=="b"){
+
+d=b;
+}
+else if(d=="c"){
+d=c;
+}
+else{
+
+d=d;
+}
+if(question =="" && a=="" && b=="" && c=="" & d=="" || question == "" || a =="" || b=="" || c==""|| d=="" || date==""){
+   $("#Message_question").addClass("alert alert-danger").html("please fill all the fields");
+}
+else if( a==b || b==c || c==a ){
+   
+   
+   $("#Message_question").addClass("alert alert-danger").html("Some fields are same please check that ");
+
+
+}
+else if( d== a || d==b || d==c ){
+
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1=document.getElementById("Message").value = myObj.name;
+         if(data1=="1"){
+          $("#Message_question").addClass("alert alert-success").html("New question added successfully");
+         clear_question_fields();
+         }
+         else{
+            $("#Message_question").addClass("alert alert-danger").html("problem to add new question");
+        
+         }
+          }
+  };
+  xmlhttp.open("GET", "add_question.php?question="+question+"&a="+a+"&b="+b+"&c="+c+"&ans="+d+"&date="+date, true);
+  xmlhttp.send();
+  
+  }
+  
+  else{
+  
+  
+ $("#Message_question").addClass("alert alert-danger").html("answer did not match");
+
+}
+
+  
+  }
+
+
+
+
+
+function view_questions(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+        document.getElementById("question12").innerHTML = myObj.question;
+        document.getElementById("a12").innerHTML = myObj.question;
+        document.getElementById("b12").innerHTML = myObj.question;
+        document.getElementById("c12").innerHTML = myObj.question;
+        
+          }
+  };
+  xmlhttp.open("GET", "view_questions.php", true);
+  xmlhttp.send();
+
+
+
+}
+
+
+function announced_result()
+  {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1 = myObj.name;
+        if(data1==1){
+		  $("#shw").addClass("alert alert-success").html("Result Has Been Decleared");
+        
+		}else{
+		  $("#shw").addClass("alert alert-warning").html("Problem to Decleare Result");
+        
+		}
+          }
+  };
+  xmlhttp.open("GET", "announce_result_.php?data=1", true);
+  xmlhttp.send();
+  }
+  
+  
+  
+  
+function announced_result_stop()
+  {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1 = myObj.name;
+        if(data1==1){
+		  $("#shw").addClass("alert alert-warning").html("Result Declearetion process is stopped");
+        
+		}else{
+		  $("#shw").addClass("alert alert-danger").html("Problem to stop Decleare Result");
+        
+		}
+          }
+  };
+  xmlhttp.open("GET", "announce_result_.php?data=0", true);
+  xmlhttp.send();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function getdata(anc)
+  {
+  
+  
+  
+   if(anc==1){
+  
+  var date2=document.getElementById("start_exam_date").value;
+  
+  if(date2==""){
+$("#Exam_Message").addClass("alert alert-warning").html("Please enter date of exam do you want to start");
+  }
+  else{
+  
+   var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1 = myObj.name;
+        if(data1==1){
+		  $("#Exam_Message").removeClass("alert alert-warning");
+		  $("#Exam_Message").addClass("alert alert-success").html("Exam time has been started");
+		  $("#start_exam_date").html(" ");
+		  
+          }
+		  
+		  else{
+		  
+		  $("#Exam_Message").removeClass("alert alert-success");
+		  $("#Exam_Message").addClass("alert alert-warning").html("Failed to start exam please try again");
+		  }}
+  };
+
+  xmlhttp.open("GET", "start_exam.php?data="+anc+"&date="+date2, true);
+  xmlhttp.send();
+  }
+  }
+  
+  
+  
+  
+  
+  
+  else{
+  
+   var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1 = myObj.name;
+		  
+        if(data1==1){
+		  $("#Exam_Message").removeClass("alert alert-warning");
+		  $("#Exam_Message").addClass("alert alert-success").html("Exam Ended");
+		  $("#start_exam_date").html(" ");
+		  
+   }else{
+		  
+		  $("#Exam_Message").removeClass("alert alert-success");
+		  $("#Exam_Message").addClass("alert alert-warning").html("Failed to start exam please try again");
+		  }}
+  };
+
+  xmlhttp.open("GET", "start_exam.php?data="+anc+"&date="+date2, true);
+  xmlhttp.send();
+  
+  
+  
+  }
+  
+  
+  
+  
+  }
+  
+
+
+
+
+
+
+
+  function clearrecord()
+  {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1=document.getElementById("output").innerHTML = myObj.name;
+        
+          }
+  };
+  xmlhttp.open("GET", "clear_login_permission.php", true);
+  xmlhttp.send();
+  }
+
+
+
+
+
+
+  function clearallquestions(){
+
+    var r = confirm("आपल्याला खात्री आहे की आपण सर्व प्रश्न हटवू इच्छिता ?");
+    if (r == true) {
+  var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          var data1=document.getElementById("output").innerHTML = myObj.name;
+        
+          }
+  };
+  xmlhttp.open("GET", "clear_all_record.php", true);
+  xmlhttp.send();
+}
+
+  }
+
+
+function clear_all_data(){
+  document.getElementById('username').value="";
+
+  document.getElementById('password').value="";
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+function mouse_over(){
+
+ $("#spin_this_one").addClass("fa fa-refresh fa-spin");
+        
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </script>
+
+
+      </head>
+      <body>
+  <div class="jumbotron " style="background-image:url('../IMAGES/vitthal.jpg');background-size:90%;height:50%;" >
+  
+   
+      
+    </div>
+
+
+  <div class="container">
+     <label class="text-center" style="text-align:center">STATUS<h3 id="output"> </h3> </label>
+    <div class="row">
+          
+      <section class="section_0" >
+        <div class="col-sm-3" >
+      <div class="panel panel-default">
+      <div class="panel-body">
+        
+          <label style="margin-left: 90px">प्रश्न जोडा(Add Questions)</label>
+          <div class="circle circle2"  data-toggle="modal" data-target="#myModal">
+          <p title="Add Questions!"/>
+            <span class="glyphicon glyphicon-plus" style="margin:25px;margin-left:30px;margin-top:30px;font-size: 75px;"></span>
+            </div>
+  </div>
+
+          </div>
+        </div>
+        <div class="col-sm-3" data-toggle="modal" data-target="#setExam" >
+      <div class="panel panel-default">
+      <div class="panel-body">
+        
+          <label style="margin-left: 75px">परीक्षा सुरू करा (Start Exam)</label>
+          <div class="circle circle2"  data-toggle="tooltip">
+            <p title="Start Exam!"/>
+            <span class="glyphicon glyphicon-play" style="margin:25px;margin-left:40px;margin-top:30px;font-size: 75px;"></span>
+          </div>
+        </div>
+      </div>
+      </div>
+      
+       
+        
+        <div class="col-sm-3" >
+        <div class="panel panel-default">
+      <div class="panel-body">
+          <--! (Give permission) -->
+          <label style="margin-left: 50px">वापरकर्त्यास परवानगी द्या</label>
+          <div class="circle circle2" onclick="clearrecord()">
+              <p title="Give rights to users!"/>
+        <span class="glyphicon glyphicon-check" style="margin:25px;margin-left:25px;margin-top:30px;font-size: 75px;"></span>
+          </div>
+      </div> 
+          </div>
+        </div>
+        
+        <div class="col-sm-3">
+        <div class="panel panel-default">
+      <div class="panel-body">
+          <--! clear all question -->
+          <label style="margin-left: 75px">सर्व प्रश्न हटवा</label>
+          <div class="circle circle2"  onclick="clearallquestions()">
+                  <p title="Clear all the Questions..!"/>
+        <span class="fa fa-refresh " id="spin_this_one" style="margin:25px;margin-left:25px;margin-top:30px;font-size: 75px;"></span>
+          </div>
+      </div> 
+          </div>
+        </div>
+
+       
+
+<div class="col-sm-3" data-toggle="modal" data-target="#myModal2">
+      <div class="panel panel-default">
+      <div class="panel-body">
+          <--! See all question -->
+          <label style="margin-left: 75px">प्रश्न पहा</label>
+          <div class="circle circle2" data-toggle="tooltip">
+            <p title="See Questions!"/>
+
+            <span class="fa fa-clipboard" style="margin:25px;margin-left:40px;margin-top:30px;font-size: 75px;"></span>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+      <div class="col-sm-3" data-toggle="modal" data-target="#show_result">
+      <div class="panel panel-default">
+      <div class="panel-body">
+         <--! Announce Result -->
+          <label style="margin-left: 75px">परिणाम घोषित करा</label>
+          <div class="circle circle2" data-toggle="tooltip">
+            <p title="See Questions!"/>
+
+            <span class="fa fa-volume-up" style="margin:25px;margin-left:40px;margin-top:30px;font-size: 75px;"></span>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+
+      </section>
+    </div>
+  </div>
+
+
+
+  
+  <div id="setExam" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+   <!-- Modal content-->
+      <div class="modal-content" style="padding:15px;">
+	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		
+        <div class="modal-header">
+		
+		<div class="panel panel-default">
+		
+      <div class="panel-body">
+		
+		
+		<div id="Exam_Message"></div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Start Exam</a></li>
+    <li><a data-toggle="tab" href="#menu1">Stop Exam</a></li>
+	</ul>	
+		
+		 <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Enter Exam Date</h3>
+     <div class="form-group">
+			<input type="text" class="form-control" id="start_exam_date" >
+			</div>
+			 <input type="button" onclick="getdata('1')" class="btn btn-success" style="margin-top:10px;" value="Start"/>
+              <input type="button" onclick='$("#Exam_Message").removeClass("alert alert-success alert-warning ").html("");' class="btn btn-default " value="Close" data-dismiss="modal" style="margin-top:10px;">
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Stop Exam</h3>
+      <input type="button" onclick="getdata('0')" class="btn btn-danger" style="margin-top:10px;" value="Stop Exam"/>
+ <input type="button" onclick='$("#Exam_Message").removeClass("alert alert-success alert-warning ").html("");' class="btn btn-default " value="Close" data-dismiss="modal" style="margin-top:10px;">	  
+    </div>
+		
+		</div>
+		
+		</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+            
+			  
+			 
+	 
+       
+            </div>
+        </div>
+      </div>
+    </div>
+  
+    
+  
+  
+  
+
+ <div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+              
+
+              <iframe style="width:100%;height:70%;" src="view_question.php">
+              </iframe>
+              <input type="button" class="btn btn-default pull-right" value="Close" data-dismiss="modal" style="margin-top:10px;">
+       
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<div id="show_result" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		
+		
+<i id="shw"></i>	
+              </div>
+			  <div class="modal-body">
+
+              <iframe style="width:100%;height:70%;" src="show_result.php">
+              </iframe>
+              
+		
+       
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="myModal1" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+
+        <div class="panel panel-login">
+            <div class="panel-heading">
+              <div class="row">
+            
+                  <a href="#" class="active" id="login-form-link">Login</a>
+                              
+              </div>
+              <hr>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+              <div class="form-group">
+
+      <label class="col-sm-2 control-label">Username</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="username" name="username" type="text" placeholder="USERNAME" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+
+      <label for="inputPassword" style="margin-top:10px;" class="col-sm-2 control-label">password</label>
+      <div class="col-sm-10">
+        <input style="margin-top:10px;" class="form-control" id="password" name="password" type="password" placeholder="PASSWORD" required>
+      </div>
+    </div>
+                
+                    <div class="form-group">
+                     
+                  <center >		
+                    	<input style="margin-top:10px;" type="button" name="login-submit" onclick="adduser()" id="login-submit" tabindex="4" class="btn btn-info" value="Log In">
+                   <button type="button" style="margin-top:10px;" class="btn btn-default " data-dismiss="modal" onclick="clear_all_data()">Close</button>
+         
+                  </center>		
+                      </div>
+              </div>
+                <p style="text-align: center;" id="Message"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div></div></div>
+
+
+
+
+
+
+
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+	  <button type="button" class="close" data-dismiss="modal" style="margin:10px;">&times;</button>
+          <div class="panel panel-login">
+            <div class="panel-heading">
+              <div class="row">
+            
+                  <a href="#" class="active" id="login-form-link">Questions</a>
+                   
+                           </div>
+              <hr>
+            </div>
+               <div class="panel-body" style="margin-left: 10px;margin-right: 10px">
+              <div class="row">    <div class="form-group">
+                                
+                                <input type="text" id="question" placeholder="enter your question" class="form-control" name="question" required>
+                              </div>
+
+                             <div class="form-group">
+                                <input type="text" id="a"placeholder="Option A" class="form-control" name="a" required>
+                              </div>
+							  
+							  <div class="form-group">
+                                <input type="text" id="b"placeholder="Option B" class="form-control" name="b" required>
+                              </div>
+							  
+							  
+                             <div class="form-group">
+                                <input type="text" id="c"placeholder="Option C" class="form-control" name="c" required>
+                              </div>
+							  
+                              
+                              
+
+                             <div class="form-group">
+                                <input type="text" id="ans"placeholder="Answer" class="form-control" name="ans" required>
+                            </div>
+							
+                            <div class="form-group">
+                                <input type="text" id="date"placeholder="Date" class="form-control" name="date" required>
+                              </div>
+                          
+                                
+                          <input type="submit" onclick="addquestion()" class="btn btn-info " id="btn" name="btn"  value="submit question">
+                          
+          <button type="button" onclick="clear_question_fields()" class="btn btn-default "  data-dismiss="modal">Close</button>
+          
+
+
+         
+                                </div>
+                                
+                                 <p style="margin-top:10px" id="Message_question" ></p>
+    </div>
+    </div>
+    </div>
+      </div>
+    </div>
+    
+      </body>
+  </html>

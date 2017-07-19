@@ -1,0 +1,26 @@
+Requirement
+login_user.php
+Add_user.php
+Add_question.php
+Change_status.php
+Update_Question.php
+Delete_single_question.php
+Clear_all_questions.php
+
+
+for client
+getallquestion.php
+submitquestions
+calculate_result
+update mark
+
+
+
+
+
+
+done
+status.php
+homepage.html
+login_user_test.html
+
